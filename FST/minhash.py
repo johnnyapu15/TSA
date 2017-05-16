@@ -3,9 +3,6 @@
 #간소화된 민해싱. 
 
 
-
-
-
 RANGE = 30000
 HASHCOUNT = 100
 
@@ -19,16 +16,23 @@ def createBoolMat(_shingles, _range):
 
     boolMat = [False] * rangeValue
     for shingle in _shingles:
-        index = hash(str((shingle))) % rangeValue
+        index = hashFunc(sum(shingle), 1) % rangeValue
         boolMat[index] = True
 
     return boolMat
 
-def poweredHash(_input, _pow):
-    output = hash(str(_input) + str(_pow))
+def hashFunc(_input, _pow):
+    #output = int(str(_input) + str(_pow))
+    #output = _input + _pow*7
     #if _pow > 1:
         #for i in range(1, _pow):
             #output = hash(str(output))
+    poly = 0xEDB88320
+    output = 0
+    inp = str(_input)
+    poly += _pow
+    for i in range(len(inp)):
+        output = output * poly + int(inp[i])
     return output
 #
 #여러 documents의  boolean matrice(hashed shingles)를 받아서
@@ -51,7 +55,7 @@ def createSignature(_boolMats, _range):
            # signature = [0] * HASHCOUNT
             minimum = RANGE + 1
             for b in range(0, rangeValue):
-                index = poweredHash(b, i) % rangeValue
+                index = hashFunc(b, i) % rangeValue
                 if _boolMats[d][index] == True:
                     if minimum > index:
                         minimum = index

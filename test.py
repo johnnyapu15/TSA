@@ -4,6 +4,7 @@
 
 import FST.shingle
 import FST.minhash
+import hashlib
 
 fp1 = open("results/t1.txt", 'r')
 fp2 = open("results/t2.txt", 'r')
@@ -24,5 +25,6 @@ shList.append(sh1)
 shList.append(sh2)
 
 sig = FST.minhash.minhash(shList, 0)
-
+tmp = FST.minhash.calcSim(sig[0], sig[1])
 print(FST.minhash.calcSim(sig[0], sig[1]))
+print(sig[0], sig[1])

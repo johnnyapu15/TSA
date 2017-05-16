@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QAxContainer import *
 
+
 FOLDER_NAME = 'results'
 OCX_NODE = "{961DB208-0F2F-41F0-95C8-723633857844}"
 
